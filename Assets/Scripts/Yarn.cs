@@ -228,10 +228,10 @@ public class Yarn : MonoBehaviour
                 // indecies for mesh triangles
                 int nextSegment = (i + 1) % numSegments;
                 int nextSide = (vertex + 1) % sides;
-                int current = i * sides + vertex;
-                int nextInSegment = nextSegment * sides + vertex;
-                int nextInSide = i * sides + nextSide;
-                int diagonal = nextSegment * sides + nextSide;
+                int current = i * sides + vertex; // index: current vert, sa,e seg
+                int nextInSegment = nextSegment * sides + vertex; // index: same vert, next seg
+                int nextInSide = i * sides + nextSide; // index: next vert, same seg
+                int diagonal = nextSegment * sides + nextSide; // index: next vertex next seg
 
                 // triangles between vertices
                 if (i < numSegments - 1)
@@ -250,8 +250,9 @@ public class Yarn : MonoBehaviour
 
         mesh.vertices = meshVertices.ToArray();
         mesh.triangles = meshTriangles.ToArray();
-
+        
         mesh.RecalculateNormals();
+
         meshFilter.mesh = mesh;
     }
 
